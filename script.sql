@@ -10,3 +10,14 @@ CREATE TABLE basic (
 INSERT INTO basic (note) VALUES ('Spring Boot is pretty cool');
 INSERT INTO basic (note) VALUES ('JPA makes database stuff easier');
 INSERT INTO basic (note) VALUES ('MariaDB and MySQL are very similar');
+
+
+
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL DEFAULT 'user'
+);
+
