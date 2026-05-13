@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.management.RuntimeErrorException;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -17,19 +18,26 @@ import app.repository.UserRepository;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     private final String SECRET = "your_secret_key";
 
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public String login(LoginRequest loginRequest) {
         User user = userRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        /*
         if(!user.getPassword().equals(loginRequest.getPassword())){
             throw new RuntimeException("Invalid password");
         }
+        */
+       if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
+        throw new RuntimeException("Invalid password");
+       }
 
         return JWT.create()
             .withSubject(user.getUsername())

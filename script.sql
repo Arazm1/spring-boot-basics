@@ -21,3 +21,8 @@ CREATE TABLE users (
     role VARCHAR(50) NOT NULL DEFAULT 'user'
 );
 
+
+--Password is "yourpassword"
+INSERT INTO users (username, password, role)
+VALUES ('alice', '$2a$10$g48q7ZyR4b6Iv0g61IQFGOUR5dCv6BfscP9NQalZ1g81lxQnBAhOG', 'user');
+
