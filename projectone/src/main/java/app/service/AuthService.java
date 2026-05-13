@@ -2,8 +2,6 @@ package app.service;
 
 import java.util.Date;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
